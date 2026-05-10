@@ -1,8 +1,10 @@
 ---
+// We are importing a simpler layout used by the blog template
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Footer from '../components/Footer.astro';
+import MediaLinks from '../components/MediaLinks.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
@@ -13,37 +15,45 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
+			<h1>Huy <span class="text-gradient">Le</span></h1>
+			<p class="subtitle">
+				Student at <strong>HCMUS</strong>. 
+				Probability, Statistics, and questionable media tastes.
 			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+
+			<MediaLinks />
+
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		color: #333; /* Making it dark text for now to match the default white theme */
+		line-height: 1.6;
+	}
+	h1 {
+		font-size: 3rem;
+		font-weight: 700;
+		line-height: 1;
+		margin-bottom: 0.5em;
+	}
+	.text-gradient {
+		background-image: linear-gradient(45deg, #00abff, #7c3aed);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.subtitle {
+		margin-bottom: 2rem;
+		border-bottom: 1px solid #eee;
+		padding-bottom: 1rem;
+		color: #666;
+	}
+</style>

@@ -1,0 +1,68 @@
+---
+// This is where you put your actual profile links!
+const links = [
+  { name: 'AOTY', desc: 'Album ratings & reviews 🎧', url: '#', color: '#ffbd03' },
+  { name: 'MAL', desc: 'Anime & Manga list 🍿', url: '#', color: '#2e51a2' },
+  { name: 'Letterboxd', desc: 'Cinema diary 🎬', url: '#', color: '#00e054' },
+  { name: 'Obsidian', desc: 'The Digital Garden 🧠', url: '#', color: '#7c3aed' }
+];
+---
+
+<div class="shelf">
+  {links.map(link => (
+    <a href={link.url} class="card" target="_blank" style={`--accent: ${link.color}`}>
+      <div class="text-group">
+        <span class="title">{link.name}</span>
+        <span class="info">{link.desc}</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .shelf {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 450px;
+    margin: 2rem 0;
+  }
+  .card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: #18181b; /* Dark background */
+    border: 1px solid #27272a;
+    border-left: 6px solid var(--accent);
+    color: #fafafa;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card:hover {
+    transform: scale(1.02) translateX(8px);
+    background: #27272a;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+  .title {
+    display: block;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    color: var(--accent);
+  }
+  .info {
+    font-size: 0.9rem;
+    color: #a1a1aa;
+  }
+  .arrow {
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .card:hover .arrow {
+    opacity: 1;
+  }
+</style>
