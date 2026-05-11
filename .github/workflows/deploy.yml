@@ -1,5 +1,4 @@
 name: Deploy to GitHub Pages
-
 on:
   push:
     branches: [master]
@@ -16,11 +15,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
-      - name: Install, build, and upload with Astro
-        uses: withastro/action@v3
+
+      - name: Setup Node      
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
+
+      - name: Install, build, and upload with Astro
+        uses: withastro/action@v3
 
   deploy:
     needs: build
@@ -28,6 +30,9 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    permissions:            
+      pages: write
+      id-token: write
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
