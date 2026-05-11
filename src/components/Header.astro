@@ -1,6 +1,6 @@
 ---
-import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
 <header>
@@ -21,26 +21,42 @@ import HeaderLink from './HeaderLink.astro';
 		background: white;
 		box-shadow: 0 2px 8px rgba(var(--black), 5%);
 	}
+
+	nav {
+		display: flex;
+		align-items: center;
+		/* This centers the internal-links div */
+		justify-content: center;
+		height: 64px; /* Standard height for a clean look */
+		position: relative;
+	}
+
 	h2 {
 		margin: 0;
 		font-size: 1em;
+		/* This pins the title to the left without affecting the center links */
+		position: absolute;
+		left: 1em;
 	}
 
 	h2 a,
 	h2 a.active {
 		text-decoration: none;
+		color: var(--black);
 	}
-	nav {
+
+	.internal-links {
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		gap: 0.5em;
 	}
+
 	nav a {
 		padding: 1em 0.5em;
 		color: var(--black);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
 	}
+
 	nav a.active {
 		text-decoration: none;
 		border-bottom-color: var(--accent);
