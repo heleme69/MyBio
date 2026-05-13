@@ -1,59 +1,130 @@
 ---
-// We are importing a simpler layout used by the blog template
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import MediaLinks from '../components/MediaLinks.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import QuartzLayout from '../layouts/QuartzLayout.astro';
+// Note: Header, Footer, and MediaLinks are removed
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>Huy <span class="text-gradient">Le</span></h1>
-			<p class="subtitle">
-				Student at <strong>HCMUS</strong>. 
-				Has questionable media tastes.
-			</p>
+<QuartzLayout title="index">
+	<article class="index-page">
+		<header class="page-header">
+			<h1 class="page-title">index</h1>
+			<p class="metadata">May 13, 2026 • 1 min read</p>
+		</header>
 
-			<MediaLinks />
+		<div class="banner">
+            <img src="/banner.jpg" alt="Train station scenery" />
+		</div>
 
-		</main>
-		<Footer />
-	</body>
-</html>
+		<div class="page-body">
+			<p>My math notes at HCMUS.</p>
+
+            <hr />
+
+			<div class="links-container">
+				<div class="link-group">
+					<h3>Media</h3>
+					<ul class="flat-list">
+						<li><a href="https://www.albumoftheyear.org/user/heleme/">AOTY</a> <span>Music 🎧</span></li>
+						<li><a href="https://myanimelist.net/profile/heleme69">MAL</a> <span>Anime & Manga 🍿</span></li>
+						<li><a href="https://letterboxd.com/heleme67/">Letterboxd</a> <span>Movies 🎬</span></li>
+					</ul>
+				</div>
+
+				<div class="link-group">
+					<h3>Study</h3>
+					<ul class="flat-list">
+						<li><a href="https://heleme69.github.io/quartz/">Obsidian</a> <span>Note 🧠</span></li>
+						<li><a href="https://github.com/heleme69">GitHub</a> <span>Source Code 💻</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<footer class="quartz-footer">
+			<p>Created with Quartz v4.5.2 © 2026<br/>
+			<a href="#">Download PDFs (GitHub)</a> <a href="#">My Main Blog</a></p>
+		</footer>
+	</article>
+</QuartzLayout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: #333; /* Making it dark text for now to match the default white theme */
-		line-height: 1.6;
+	.page-header {
+		margin-bottom: 1.5rem;
 	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 700;
-		line-height: 1;
-		margin-bottom: 0.5em;
+
+	.page-title {
+		font-size: 2rem;
+		margin: 0;
 	}
-	.text-gradient {
-		background-image: linear-gradient(45deg, #00abff, #7c3aed);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
+
+	.metadata {
+		color: var(--text-muted);
+		font-size: 0.85rem;
+		margin: 0.2rem 0 0 0;
 	}
-	.subtitle {
+
+	.banner img {
+		width: 100%;
+		border-radius: 4px;
+		display: block;
 		margin-bottom: 2rem;
-		border-bottom: 1px solid #eee;
-		padding-bottom: 1rem;
-		color: #666;
+	}
+
+	.links-container {
+		display: flex;
+		gap: 5rem;
+		margin-top: 2rem;
+	}
+
+	.link-group h3 {
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 0.8rem;
+	}
+
+	.flat-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.flat-list li {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.4rem 0;
+		width: 200px; /* Constrains the width to match the Quartz look */
+	}
+
+	.flat-list li span {
+		font-size: 0.85rem;
+		color: var(--text-muted);
+	}
+
+	.quartz-footer {
+		margin-top: 4rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--border-color);
+	}
+
+	.quartz-footer p {
+		color: var(--text-muted);
+		font-size: 0.85rem;
+		line-height: 1.8;
+	}
+
+	.quartz-footer a {
+		margin-right: 1rem;
+	}
+
+	@media (max-width: 600px) {
+		.links-container {
+			flex-direction: column;
+			gap: 2rem;
+		}
+		.flat-list li {
+			width: 100%;
+		}
 	}
 </style>
