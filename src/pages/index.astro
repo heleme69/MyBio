@@ -1,52 +1,140 @@
 ---
-import QuartzLayout from '../layouts/QuartzLayout.astro';
-// Note: Header, Footer, and MediaLinks are removed
+import BaseHead from '../components/BaseHead.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
-<QuartzLayout title="index">
-	<article class="index-page">
-		<header class="page-header">
-			<h1 class="page-title">index</h1>
-			<p class="metadata">May 13, 2026 • 1 min read</p>
-		</header>
-
-		<div class="banner">
-            <img src="/banner.jpg" alt="Train station scenery" />
-		</div>
-
-		<div class="page-body">
-			<p>My math notes at HCMUS.</p>
-
-            <hr />
-
-			<div class="links-container">
-				<div class="link-group">
-					<h3>Media</h3>
-					<ul class="flat-list">
-						<li><a href="https://www.albumoftheyear.org/user/heleme/">AOTY</a> <span>Music 🎧</span></li>
-						<li><a href="https://myanimelist.net/profile/heleme69">MAL</a> <span>Anime & Manga 🍿</span></li>
-						<li><a href="https://letterboxd.com/heleme67/">Letterboxd</a> <span>Movies 🎬</span></li>
-					</ul>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<div class="page-wrapper">
+			
+			<aside class="sidebar">
+				<h2 class="site-title"><a href="/">Quartz 4</a></h2>
+				
+				<div class="search-bar">
+					<span class="icon">🔍</span> Search
 				</div>
 
-				<div class="link-group">
-					<h3>Study</h3>
-					<ul class="flat-list">
-						<li><a href="https://heleme69.github.io/quartz/">Obsidian</a> <span>Note 🧠</span></li>
-						<li><a href="https://github.com/heleme69">GitHub</a> <span>Source Code 💻</span></li>
+				<nav class="explorer">
+					<h3>Explorer</h3>
+					<ul>
+						<li><a href="/giai-tich-ham">› Giải tích hàm</a></li>
+						<li><a href="/tinh-toan-mo-phong">› Tính toán mô phỏng</a></li>
+						<li><a href="/xstk">› Xác suất thống kê</a></li>
+						<li><a href="/random">› Random</a></li>
 					</ul>
-				</div>
-			</div>
-		</div>
+				</nav>
+			</aside>
 
-		<footer class="quartz-footer">
-			<p>Created with Quartz v4.5.2 © 2026<br/>
-			<a href="#">Download PDFs (GitHub)</a> <a href="#">My Main Blog</a></p>
-		</footer>
-	</article>
-</QuartzLayout>
+			<main class="content">
+				<article class="index-page">
+					<header class="page-header">
+						<h1 class="page-title">index</h1>
+						<p class="metadata">May 13, 2026 • 1 min read</p>
+					</header>
+
+					<div class="banner">
+						<img src="/banner.jpg" alt="Train station scenery" onerror="this.style.display='none'"/>
+					</div>
+
+					<div class="page-body">
+						<p>My math notes at HCMUS.</p>
+						<hr />
+
+						<div class="links-container">
+							<div class="link-group">
+								<h3>Media</h3>
+								<ul class="flat-list">
+									<li><a href="https://www.albumoftheyear.org/user/heleme/" target="_blank">AOTY</a> <span>Music 🎧</span></li>
+									<li><a href="https://myanimelist.net/profile/heleme69" target="_blank">MAL</a> <span>Anime & Manga 🍿</span></li>
+									<li><a href="https://letterboxd.com/heleme67/" target="_blank">Letterboxd</a> <span>Movies 🎬</span></li>
+								</ul>
+							</div>
+
+							<div class="link-group">
+								<h3>Study</h3>
+								<ul class="flat-list">
+									<li><a href="https://heleme69.github.io/quartz/" target="_blank">Obsidian</a> <span>Note 🧠</span></li>
+									<li><a href="https://github.com/heleme69" target="_blank">GitHub</a> <span>Source Code 💻</span></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<footer class="quartz-footer">
+						<p>Created with Quartz v4.5.2 © 2026<br/>
+						<a href="#">Download PDFs (GitHub)</a> <a href="#">My Main Blog</a></p>
+					</footer>
+				</article>
+			</main>
+			
+		</div>
+	</body>
+</html>
 
 <style>
+	/* Layout Structure */
+	.page-wrapper {
+		display: flex;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 4rem 2rem;
+		gap: 6rem;
+	}
+
+	.sidebar {
+		width: 250px;
+		flex-shrink: 0;
+	}
+
+	.content {
+		flex-grow: 1;
+		max-width: 750px; 
+	}
+
+	/* Sidebar Styling */
+	.site-title a {
+		color: var(--link-color); 
+		font-size: 1.5rem;
+		font-weight: 700;
+	}
+
+	.search-bar {
+		background: transparent;
+		border: 1px solid var(--border-color);
+		color: var(--text-muted);
+		padding: 0.4rem 0.8rem;
+		border-radius: 6px;
+		margin: 1.5rem 0;
+		font-size: 0.85rem;
+		cursor: text;
+	}
+
+	.explorer h3 {
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		margin-bottom: 0.5rem;
+	}
+
+	.explorer ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.explorer li {
+		margin-bottom: 0.3rem;
+	}
+
+	.explorer a {
+		font-size: 0.9rem;
+		color: var(--link-color);
+	}
+
+	/* Page Content Styling */
 	.page-header {
 		margin-bottom: 1.5rem;
 	}
@@ -94,7 +182,7 @@ import QuartzLayout from '../layouts/QuartzLayout.astro';
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.4rem 0;
-		width: 200px; /* Constrains the width to match the Quartz look */
+		width: 200px; 
 	}
 
 	.flat-list li span {
@@ -118,7 +206,15 @@ import QuartzLayout from '../layouts/QuartzLayout.astro';
 		margin-right: 1rem;
 	}
 
-	@media (max-width: 600px) {
+	@media (max-width: 850px) {
+		.page-wrapper {
+			flex-direction: column;
+			gap: 3rem;
+			padding: 2rem 1.5rem;
+		}
+		.sidebar {
+			width: 100%;
+		}
 		.links-container {
 			flex-direction: column;
 			gap: 2rem;

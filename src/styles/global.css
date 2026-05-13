@@ -21,28 +21,18 @@
   --text-muted: #6b6b6b;
   --link-color: #90a4b5;
   --border-color: #2b2b2b;
-  --accent: #90a4b5; /* Adapting your existing accent variable */
-  
-  /* Keeping your Atkinson font */
-  --font-body: 'Atkinson', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-atkinson: 'Atkinson', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-atkinson);
   margin: 0;
   padding: 0;
   background-color: var(--bg-color);
   color: var(--text-main);
-  font-size: 16px; /* Quartz uses a slightly smaller, tighter text scale */
+  font-size: 16px;
   line-height: 1.6;
   text-align: left;
-}
-
-/* We remove the fixed 720px width from main so our layout component can control the grid */
-main {
-  width: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -68,10 +58,8 @@ hr {
   margin: 2rem 0;
 }
 
-/* Subtle styling for inline code in notes */
 code {
-  padding: 0.2em 0.4em;
+  padding: 2px 5px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  font-size: 0.9em;
 }
