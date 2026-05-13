@@ -14,7 +14,7 @@
 }
 
 :root {
-  /* Quartz Dark Theme Palette */
+  /* Dark Theme Palette */
   --bg-color: #161618;
   --text-main: #b8b8b8;
   --text-heading: #ebebec;
@@ -22,6 +22,27 @@
   --link-color: #90a4b5;
   --border-color: #2b2b2b;
   --font-atkinson: 'Atkinson', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* --- QUARTZ DESIGN SYSTEM SCALES --- */
+  --base-size: 10pt;
+  --scale: 1.3;
+
+  /* Type scale */
+  --size-body: calc(var(--base-size) * var(--scale)); 
+  --size-h1: calc(12pt * var(--scale));               
+  --size-h2: calc(11pt * var(--scale));               
+  --size-h3: calc(var(--base-size) * var(--scale));   
+  --size-h4: var(--size-body);
+  --lh-body: 1.6;
+  --lh-heading: 1.3;
+
+  /* Spacing scale (em so they follow font size) */
+  --space-1: 0.25em; 
+  --space-2: 0.5em;  
+  --space-3: 0.8em;  
+  --space-4: 1.25em; 
+  --space-5: 1.8em;  
+  --space-6: 2.5em;  
 }
 
 body {
@@ -30,16 +51,31 @@ body {
   padding: 0;
   background-color: var(--bg-color);
   color: var(--text-main);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: var(--size-body);
+  line-height: var(--lh-body);
   text-align: left;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: var(--text-heading);
-  line-height: 1.2;
-  font-weight: 700;
-  margin: 0 0 0.5rem 0;
+/* Typography derived directly from the SCSS */
+h1 { font-size: var(--size-h1); font-weight: bold; letter-spacing: 0.3px; line-height: var(--lh-heading); margin-top: var(--space-6); margin-bottom: var(--space-4); color: var(--text-heading); }
+h2 { font-size: var(--size-h2); font-weight: bold; line-height: var(--lh-heading); margin-top: var(--space-5); margin-bottom: var(--space-2); color: var(--text-heading); }
+h3 { font-size: var(--size-h3); font-weight: bold; line-height: var(--lh-heading); margin-top: var(--space-4); margin-bottom: var(--space-2); color: var(--text-heading); }
+h4, h5, h6 { font-size: var(--size-h4); font-weight: bold; line-height: var(--lh-heading); margin-top: var(--space-4); margin-bottom: var(--space-1); color: var(--text-heading); }
+
+p {
+  text-align: justify;
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+ul, ol {
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+li {
+  text-align: left;
+  margin-bottom: var(--space-1);
 }
 
 a {
@@ -55,11 +91,5 @@ a:hover {
 hr {
   border: none;
   border-top: 1px solid var(--border-color);
-  margin: 2rem 0;
-}
-
-code {
-  padding: 2px 5px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  margin: var(--space-4) 0;
 }

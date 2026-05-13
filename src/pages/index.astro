@@ -12,19 +12,14 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		<div class="page-wrapper">
 			
 			<aside class="sidebar">
-				<h2 class="site-title"><a href="/">Quartz 4</a></h2>
-				
-				<div class="search-bar">
-					<span class="icon">🔍</span> Search
-				</div>
+				<h2 class="site-title"><a href="/">Huy Le</a></h2>
 
 				<nav class="explorer">
 					<h3>Explorer</h3>
 					<ul>
-						<li><a href="/giai-tich-ham">› Giải tích hàm</a></li>
-						<li><a href="/tinh-toan-mo-phong">› Tính toán mô phỏng</a></li>
-						<li><a href="/xstk">› Xác suất thống kê</a></li>
-						<li><a href="/random">› Random</a></li>
+						<li><a href="/">› Home</a></li>
+						<li><a href="/about">› About</a></li>
+						<li><a href="/blog">› Blog</a></li>
 					</ul>
 				</nav>
 			</aside>
@@ -37,11 +32,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 					</header>
 
 					<div class="banner">
-						<img src="/banner.jpg" alt="Train station scenery" onerror="this.style.display='none'"/>
+						<img src="/banner.jpg" alt="Scenery" onerror="this.style.display='none'"/>
 					</div>
 
 					<div class="page-body">
-						<p>My math notes at HCMUS.</p>
+						<p>Student at HCMUS. Has questionable media tastes.</p>
 						<hr />
 
 						<div class="links-container">
@@ -65,8 +60,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 					</div>
 
 					<footer class="quartz-footer">
-						<p>Created with Quartz v4.5.2 © 2026<br/>
-						<a href="#">Download PDFs (GitHub)</a> <a href="#">My Main Blog</a></p>
+						<p>© 2026 heleme69<br/>
+						<a href="https://github.com/heleme69">GitHub</a></p>
 					</footer>
 				</article>
 			</main>
@@ -96,27 +91,22 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	}
 
 	/* Sidebar Styling */
-	.site-title a {
-		color: var(--link-color); 
-		font-size: 1.5rem;
-		font-weight: 700;
+	.site-title {
+		margin-top: 0;
+		margin-bottom: 2rem;
 	}
 
-	.search-bar {
-		background: transparent;
-		border: 1px solid var(--border-color);
-		color: var(--text-muted);
-		padding: 0.4rem 0.8rem;
-		border-radius: 6px;
-		margin: 1.5rem 0;
-		font-size: 0.85rem;
-		cursor: text;
+	.site-title a {
+		color: var(--text-heading); 
+		font-size: var(--size-h4);
+		font-weight: 700;
 	}
 
 	.explorer h3 {
 		font-size: 0.85rem;
 		color: var(--text-muted);
 		margin-bottom: 0.5rem;
+		margin-top: 0;
 	}
 
 	.explorer ul {
@@ -130,7 +120,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	}
 
 	.explorer a {
-		font-size: 0.9rem;
+		font-size: 0.95rem;
 		color: var(--link-color);
 	}
 
@@ -140,7 +130,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	}
 
 	.page-title {
-		font-size: 2rem;
 		margin: 0;
 	}
 
@@ -148,13 +137,15 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		color: var(--text-muted);
 		font-size: 0.85rem;
 		margin: 0.2rem 0 0 0;
+		text-align: left;
 	}
 
 	.banner img {
 		width: 100%;
 		border-radius: 4px;
 		display: block;
-		margin-bottom: 2rem;
+		margin-bottom: var(--space-4);
+		object-fit: cover;
 	}
 
 	.links-container {
@@ -169,6 +160,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
 		margin-bottom: 0.8rem;
+		margin-top: 0;
 	}
 
 	.flat-list {
@@ -183,6 +175,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		align-items: center;
 		padding: 0.4rem 0;
 		width: 200px; 
+		margin-bottom: 0;
 	}
 
 	.flat-list li span {
@@ -200,6 +193,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		color: var(--text-muted);
 		font-size: 0.85rem;
 		line-height: 1.8;
+		text-align: left;
+		margin: 0;
 	}
 
 	.quartz-footer a {
