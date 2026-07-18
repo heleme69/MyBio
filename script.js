@@ -19,12 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let standardDelayPace = deleteStateActive ? 35 : 80;
 
         if (!deleteStateActive && characterIdx === structuralPhrase.length) {
-            standardDelayPace = 2000; // Freeze delay step when text block finishes rendering
+            standardDelayPace = 2000;
             deleteStateActive = true;
         } else if (deleteStateActive && characterIdx === 0) {
             deleteStateActive = false;
             phraseIdx = (phraseIdx + 1) % identityStrings.length;
-            standardDelayPace = 350; // Delay transition step before rewriting a fresh string 
+            standardDelayPace = 350;
         }
 
         setTimeout(processTypewriterExecution, standardDelayPace);
@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentStampLabel = document.getElementById('track-time-current');
     const runtimeDurationLabel = document.getElementById('track-time-duration');
     const systemVolSlider = document.getElementById('volume-slider-node');
+    const volumeIconToggle = document.getElementById('volume-icon-toggle');
     const metricsViewer = document.getElementById('view-count-mock');
 
     // Live View Counter via Cloudflare Worker & KV Storage
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => {
                 console.error('View counter fetch failed:', err);
-                metricsViewer.textContent = '—'; // Clean visual fallback if offline
+                metricsViewer.textContent = '—';
             });
     }
 
@@ -125,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 durationPollHandle = null;
             }
         }, 200);
-        // Hard stop after 5s so we never poll forever on a broken source
         setTimeout(() => {
             if (durationPollHandle) {
                 clearInterval(durationPollHandle);
@@ -215,8 +215,37 @@ document.addEventListener('DOMContentLoaded', () => {
         // Live Volume Slider Tracking Controls
         if (systemVolSlider) {
             systemVolSlider.addEventListener('input', (event) => {
-                mediaChannel.volume = event.target.value;
+                const newVolume = parseFloat(event.target.value);
+                mediaChannel.volume = newVolume;
+                // Dragging to 0 counts as muted; dragging back up un-mutes
+                mediaChannel.muted = newVolume === 0;
             });
         }
+
+        // Click-to-mute on the speaker icon. Uses the native `.muted`
+        // property rather than zeroing volume, so the slider position
+        // (and the last volume level) is preserved and restored on unmute.
+        if (volumeIconToggle) {
+            volumeIconToggle.addEventListener('click', () => {
+                mediaChannel.muted = !mediaChannel.muted;
+            });
+        }
+
+        // Single source of truth for the icon glyph — fires on both the
+        // slider drag (via .volume/.muted changes above) and icon clicks,
+        // so it can never drift out of sync with the actual audio state.
+        function syncVolumeIcon() {
+            if (!volumeIconToggle) return;
+            if (mediaChannel.muted || mediaChannel.volume === 0) {
+                volumeIconToggle.textContent = "🔇";
+            } else if (mediaChannel.volume < 0.5) {
+                volumeIconToggle.textContent = "🔉";
+            } else {
+                volumeIconToggle.textContent = "🔊";
+            }
+        }
+
+        mediaChannel.addEventListener('volumechange', syncVolumeIcon);
+        syncVolumeIcon(); // reflect whatever the initial state is on load
     }
 });
