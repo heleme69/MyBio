@@ -265,7 +265,11 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #08080c;
+
+    background-color: rgba(5, 5, 8, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    
     z-index: 9999;
     display: flex;
     justify-content: center;
