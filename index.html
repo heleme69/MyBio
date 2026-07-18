@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@heleme | MyPage</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="effects/effects.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+    <!-- Click to Enter Landing Overlay -->
+    <div id="enter-overlay" class="click-to-enter-screen">
+        <div class="enter-prompt">
+            <span class="pulse-bracket">[</span> click to enter <span class="pulse-bracket">]</span>
+        </div>
+    </div>
+
+    <!-- Background Layer Canvas -->
+    <div class="background-viewport">
+        <video autoplay loop muted playsinline id="bg-video">
+            <source src="assets/background.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Old-TV Effect Layers (effects.css / effects.js) -->
+    <div class="tv-scanlines"></div>
+    <div class="tv-vignette"></div>
+    <div class="tv-noise"></div>
+
+    <audio id="bg-audio" src="assets/background_music.m4a" loop preload="auto"></audio>
+
+    <!-- Master Application Viewport Stack -->
+    <div class="profile-viewport-stack">
+        
+        <!-- Primary Bio Information Panel Box -->
+        <main class="primary-bio-card">
+
+            <h1 class="profile-handle" data-text="heleme">heleme</h1>
+            
+            <div class="typewriter-container">
+                <span id="typewriter-target"></span><span class="cursor-blink">|</span>
+            </div>
+
+            <!-- Horizontal Rows for Clean Social Link Embedding -->
+            <div class="horizontal-social-row">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-anchor">
+                    <img src="assets/icons/facebook.png" alt="Facebook" class="social-icon-glyph">
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon-anchor">
+                    <img src="assets/icons/github.png" alt="GitHub" class="social-icon-glyph">
+                </a>
+                <a href="#" class="social-icon-anchor">
+                    <img src="assets/icons/AOTY.png" alt="AOTY" class="social-icon-glyph">
+                </a>
+                <a href="#" class="social-icon-anchor">
+                    <img src="assets/icons/MAL.png" alt="MyAnimeList" class="social-icon-glyph">
+                </a>
+                <a href="#" class="social-icon-anchor">
+                    <img src="assets/icons/letterboxd.png" alt="Letterboxd" class="social-icon-glyph">
+                </a>
+            </div>
+
+            <!-- Static View Counter Node mimicking guns.lol metrics -->
+            <div class="view-counter-metric">
+                <span class="view-icon">👁️</span> <span id="view-count-mock">0</span>
+            </div>
+        </main>
+
+        <!-- Separate Dedicated Music Stream Interface Widget Box -->
+        <section class="media-playback-widget">
+            <div class="media-artwork-box">
+                <span class="music-note-glyph">🎵</span>
+            </div>
+            
+            <div class="media-timeline-details">
+                <div class="media-text-metadata">
+                    <span class="track-title-string">Racing Mount Pleasant</span>
+                </div>
+                
+                <!-- Fluid Audio Scrubber Pipeline Tracking -->
+                <div class="timeline-scrrubber-row">
+                    <span class="time-elapsed-timestamp" id="track-time-current">0:00</span>
+                    <input type="range" id="media-scrub-bar" min="0" max="100" value="0">
+                    <span class="time-total-duration" id="track-time-duration">0:00</span>
+                </div>
+            </div>
+
+            <!-- Media Stream Execution Controls and Hover Volume Box -->
+            <div class="media-control-cluster">
+                <div class="volume-slider-dock">
+                    <span class="volume-speaker-glyph" id="volume-icon-toggle">🔊</span>
+                    <div class="slider-reveal-tray">
+                        <input type="range" id="volume-slider-node" min="0" max="1" step="0.05" value="0.5">
+                    </div>
+                </div>
+                <button type="button" class="playback-state-trigger" id="widget-play-toggle">▶</button>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="effects/effects.js"></script>
+</body>
+</html>

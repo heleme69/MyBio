@@ -1,0 +1,288 @@
+:root {
+    --neon-accent: #00ff96;
+    --text-main: #ffffff;
+    --glow-shadow: rgba(255, 255, 255, 0.25);
+    --panel-blur: blur(8px) saturate(130%);
+    --card-bg: rgba(20, 20, 25, 0.45);
+    --border-spec: rgba(255, 255, 255, 0.06);
+    --widget-width: 600px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050508;
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: url('assets/custom_cursor.png'), auto;
+}
+
+.background-viewport {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.background-viewport video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Vertical Core Container Stack for Dual Layout Component Boxes */
+.profile-viewport-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px; /* Separation channel matches reference */
+    z-index: 1;
+    transform: translateZ(0);
+}
+
+/* Box 1: Profile Container Box Layout */
+.primary-bio-card {
+    background: var(--card-bg);
+    backdrop-filter: var(--panel-blur);
+    -webkit-backdrop-filter: var(--panel-blur);
+    border: 1px solid var(--border-spec);
+    padding: 1.9rem 2rem 1.5rem 2rem;
+    border-radius: 24px;
+    width: var(--widget-width);
+    max-width: 92vw;
+    text-align: center;
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.profile-handle {
+    font-size: 2.2rem;
+    font-weight: 500;
+    margin-bottom: 0.1rem;
+    font-family: monospace; /* Glitch-style look layout fallback */
+    letter-spacing: 1px;
+}
+
+.typewriter-container {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.65);
+    height: 18px;
+    margin-bottom: 2rem;
+}
+
+.cursor-blink {
+    animation: flash 0.8s infinite;
+    color: var(--neon-accent);
+}
+
+@keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* Horizontal Social Grid Mechanics */
+.horizontal-social-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+}
+
+/* Cookie-cutter circular frame: clips any icon (square, rect, or
+   already-circular) into a uniform circle, regardless of source shape. */
+.social-icon-anchor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.social-icon-anchor:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 12px var(--glow-shadow);
+}
+
+/* Universal image scaling: forces any aspect ratio to fill the circle
+   without distortion. */
+.social-icon-anchor .social-icon-glyph {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* Box 2: Modular Live Audio Tracker Interface Widget styling rules */
+.media-playback-widget {
+    background: var(--card-bg);
+    backdrop-filter: var(--panel-blur);
+    -webkit-backdrop-filter: var(--panel-blur);
+    border: 1px solid var(--border-spec);
+    padding: 1.1rem 1.5rem;
+    border-radius: 20px;
+    width: var(--widget-width);
+    max-width: 92vw;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.media-artwork-box {
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.music-note-glyph {
+    font-size: 1.4rem;
+    opacity: 0.85;
+}
+
+.media-timeline-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.track-title-string {
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.2px;
+}
+
+.timeline-scrrubber-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.time-elapsed-timestamp, .time-total-duration {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: monospace;
+    width: 32px;
+}
+
+/* Interactive Embedded Scrubber Track Bar Customization styling rules */
+#media-scrub-bar {
+    flex-grow: 1;
+    accent-color: var(--text-main);
+    background: rgba(255, 255, 255, 0.15);
+    height: 4px;
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+.media-control-cluster {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.playback-state-trigger {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 24px;
+    transition: transform 0.2s ease;
+}
+
+.playback-state-trigger:hover {
+    transform: scale(1.15);
+}
+
+/* Volume control hover disclosure logic styling configurations */
+.volume-slider-dock {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.volume-speaker-glyph {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    font-size: 1rem;
+}
+
+.volume-slider-dock:hover .volume-speaker-glyph {
+    opacity: 1;
+}
+
+.slider-reveal-tray {
+    max-width: 0;
+    overflow: hidden;
+    transition: max-width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), margin-left 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.volume-slider-dock:hover .slider-reveal-tray {
+    max-width: 80px; /* Expands to reveal itself inline smoothly */
+    margin-left: 8px;
+}
+
+#volume-slider-node {
+    width: 70px;
+    accent-color: var(--text-main);
+    height: 3px;
+    cursor: pointer;
+}
+
+/* Click to Enter Landing Screen style layer stack override configurations */
+.click-to-enter-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #08080c;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+}
+
+.enter-prompt {
+    font-size: 1.05rem;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+}
+
+.screen-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}

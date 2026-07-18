@@ -1,0 +1,164 @@
+/* ============================================================
+   effects.css
+   Self-contained visual effects layer — kept separate from
+   style.css so the core layout stays untouched and effects can
+   be swapped/removed independently.
+   ============================================================ */
+
+/* ---------- 1. Name Handle: fuzzy / glitch ---------- */
+/* Requires: <h1 class="profile-handle" data-text="heleme">heleme</h1>
+   The data-text attribute feeds the ::before/::after slices. */
+
+.profile-handle {
+    position: relative;
+}
+
+.profile-handle::before,
+.profile-handle::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.profile-handle::before {
+    color: #ff2b6d;
+    text-shadow: -1px 0 rgba(255, 43, 109, 0.8);
+}
+
+.profile-handle::after {
+    color: #00e5ff;
+    text-shadow: 1px 0 rgba(0, 229, 255, 0.8);
+}
+
+/* Idle state: near-still, extremely subtle fuzz so the effect never
+   fully disappears between glitch bursts. */
+.profile-handle {
+    animation: handle-idle-fuzz 6s ease-in-out infinite;
+}
+
+@keyframes handle-idle-fuzz {
+    0%, 100% { filter: blur(0px); }
+    50% { filter: blur(0.3px); }
+}
+
+/* Active state: toggled by effects.js in short random bursts. */
+.profile-handle.glitch-active {
+    animation: glitch-fuzzy-shake 0.25s steps(2, end) infinite;
+}
+
+.profile-handle.glitch-active::before {
+    opacity: 0.85;
+    animation: glitch-slice-1 0.3s steps(2, end) infinite;
+}
+
+.profile-handle.glitch-active::after {
+    opacity: 0.85;
+    animation: glitch-slice-2 0.3s steps(2, end) infinite;
+}
+
+@keyframes glitch-fuzzy-shake {
+    0%   { filter: blur(0px);   transform: translate(0, 0); }
+    25%  { filter: blur(0.7px); transform: translate(-1.5px, 0.5px); }
+    50%  { filter: blur(0.2px); transform: translate(1.5px, -0.5px); }
+    75%  { filter: blur(0.9px); transform: translate(-0.8px, 0.6px); }
+    100% { filter: blur(0px);   transform: translate(0, 0); }
+}
+
+@keyframes glitch-slice-1 {
+    0%   { clip-path: inset(10% 0 60% 0); transform: translate(-3px, 0); }
+    50%  { clip-path: inset(55% 0 5% 0);  transform: translate(3px, 0); }
+    100% { clip-path: inset(20% 0 40% 0); transform: translate(-2px, 0); }
+}
+
+@keyframes glitch-slice-2 {
+    0%   { clip-path: inset(60% 0 5% 0);  transform: translate(3px, 0); }
+    50%  { clip-path: inset(5% 0 70% 0);  transform: translate(-3px, 0); }
+    100% { clip-path: inset(40% 0 20% 0); transform: translate(2px, 0); }
+}
+
+
+/* ---------- 2. Background: old TV ---------- */
+/* Requires two overlay divs sitting above .background-viewport but
+   below .profile-viewport-stack:
+   <div class="tv-scanlines"></div>
+   <div class="tv-vignette"></div>
+   <div class="tv-noise"></div>
+*/
+
+.tv-scanlines,
+.tv-vignette,
+.tv-noise {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Rolling horizontal scanlines */
+.tv-scanlines {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.35) 0px,
+        rgba(0, 0, 0, 0.35) 1px,
+        transparent 2px,
+        transparent 3px
+    );
+    background-size: 100% 4px;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+    animation: tv-scan-roll 9s linear infinite;
+}
+
+@keyframes tv-scan-roll {
+    0%   { background-position: 0 0; }
+    100% { background-position: 0 400px; }
+}
+
+/* Curved-glass vignette darkening + irregular brightness flicker,
+   like an old CRT losing sync for a split second. */
+.tv-vignette {
+    background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.7) 100%);
+    animation: tv-flicker 5s infinite;
+}
+
+@keyframes tv-flicker {
+    0%, 89%, 100% { opacity: 1; }
+    90%  { opacity: 0.82; }
+    91%  { opacity: 1; }
+    93%  { opacity: 0.88; }
+    94%  { opacity: 1; }
+    96%  { opacity: 0.93; }
+    97%  { opacity: 1; }
+}
+
+/* Fine grain static, animated in coarse steps to read as "noise"
+   rather than a smooth drift. */
+.tv-noise {
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 180px 180px;
+    animation: tv-static-jitter 0.2s steps(2) infinite;
+}
+
+@keyframes tv-static-jitter {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-3%, 2%); }
+}
+
+/* Occasional full-screen "signal drop" — a quick brightness/hue jolt,
+   triggered by effects.js adding this class briefly. */
+.tv-glitch-active .background-viewport,
+.tv-glitch-active .profile-viewport-stack {
+    animation: tv-signal-drop 0.15s steps(2, end);
+}
+
+@keyframes tv-signal-drop {
+    0%   { filter: none; }
+    50%  { filter: brightness(1.3) hue-rotate(8deg); transform: translateX(2px); }
+    100% { filter: none; transform: translateX(0); }
+}
