@@ -11,14 +11,15 @@ export default {
     }
 
     const url = new URL(request.url);
-    if (url.pathname === "/favicon.ico") {
-      return new Response(null, { status: 204 }); // Return "No Content" immediately
-    }
+    const skip = url.searchParams.get("skip") === "true";
 
     const key = "site-views";
     let count = parseInt(await env.VIEW_KV.get(key)) || 0;
-    count += 1;
-    await env.VIEW_KV.put(key, count.toString());
+
+    if (!skip) {
+      count += 1;
+      await env.VIEW_KV.put(key, count.toString());
+    }
 
     return new Response(JSON.stringify({ count }), { headers });
   },

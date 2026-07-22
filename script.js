@@ -43,9 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const volumeIconToggle = document.getElementById('volume-icon-toggle');
     const metricsViewer = document.getElementById('view-count-mock');
 
-    // Live View Counter via Cloudflare Worker & KV Storage
+    // Live View Counter via Cloudflare Worker & KV Storage (with dev=true bypass)
     if (metricsViewer) {
-        fetch('https://icy-moon-eb52.lehuyme9.workers.dev')
+        // Check if "?dev=true" is in the address bar URL
+        const isOwner = window.location.search.includes("dev=true");
+
+        // Send skip=true to Cloudflare if dev=true is present
+        const targetApiUrl = isOwner 
+            ? 'https://icy-moon-eb52.lehuyme9.workers.dev?skip=true' 
+            : 'https://icy-moon-eb52.lehuyme9.workers.dev';
+
+        fetch(targetApiUrl)
             .then(res => {
                 if (!res.ok) throw new Error('Network response failure');
                 return res.json();
