@@ -24,7 +24,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: url('assets/custom_cursor.png'), auto;
+    cursor: url('assets/custom_cursor.png') 0 0, auto;
 }
 
 .background-viewport {
