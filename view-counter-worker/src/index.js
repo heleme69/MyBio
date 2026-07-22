@@ -4,6 +4,7 @@ export default {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, OPTIONS",
       "Content-Type": "application/json",
+      "Cache-Control": "no-store, no-cache, must-revalidate",
     };
 
     if (request.method === "OPTIONS") {
