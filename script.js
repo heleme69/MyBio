@@ -43,14 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const volumeIconToggle = document.getElementById('volume-icon-toggle');
     const metricsViewer = document.getElementById('view-count-mock');
 
-    // Live View Counter via Cloudflare Worker & KV Storage (with dev=true bypass)
+    // Live View Counter via Cloudflare Worker & KV Storage 
     if (metricsViewer) {
-        // Check if "?dev=true" is in the address bar URL
         const isOwner = window.location.search.includes("dev=true");
+        const alreadyCounted = localStorage.getItem("hasViewedBio") === "true";
+        
+        // Skip incrementing if: owner in dev mode, OR this browser already counted once
+        const shouldSkip = isOwner || alreadyCounted;
 
-        // Send skip=true to Cloudflare if dev=true is present
-        const targetApiUrl = isOwner 
-            ? 'https://icy-moon-eb52.lehuyme9.workers.dev?skip=true' 
+        const targetApiUrl = shouldSkip
+            ? 'https://icy-moon-eb52.lehuyme9.workers.dev?skip=true'
             : 'https://icy-moon-eb52.lehuyme9.workers.dev';
 
         fetch(targetApiUrl)
@@ -60,6 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 metricsViewer.textContent = data.count.toLocaleString();
+                // Mark this browser as having counted, so future reloads skip
+                if (!isOwner) {
+                    localStorage.setItem("hasViewedBio", "true");
+                }
             })
             .catch(err => {
                 console.error('View counter fetch failed:', err);
