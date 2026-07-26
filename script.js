@@ -303,6 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        mediaChannel.volume = 0.5; // set actual playback volume to match slider's visual default
         mediaChannel.addEventListener('volumechange', syncVolumeIcon);
         syncVolumeIcon(); // reflect whatever the initial state is on load
     }
