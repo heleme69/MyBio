@@ -73,6 +73,50 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    // --- Outbound Link Warning Modal ---
+    // Intercepts clicks on social icons and shows a confirmation modal
+    // before navigating to the external destination.
+    const linkWarningOverlay = document.getElementById('link-warning-overlay');
+    const linkWarningUrlDisplay = document.getElementById('link-warning-url');
+    const linkWarningVisitBtn = document.getElementById('link-warning-visit');
+    const linkWarningCancelBtn = document.getElementById('link-warning-cancel');
+
+    if (linkWarningOverlay && linkWarningUrlDisplay && linkWarningVisitBtn && linkWarningCancelBtn) {
+        let pendingUrl = null;
+
+        const socialLinks = document.querySelectorAll('.social-icon-anchor');
+
+        socialLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                pendingUrl = link.href;
+                linkWarningUrlDisplay.textContent = pendingUrl;
+                linkWarningOverlay.classList.add('active');
+            });
+        });
+
+        linkWarningVisitBtn.addEventListener('click', () => {
+            if (pendingUrl) {
+                window.open(pendingUrl, '_blank', 'noopener');
+            }
+            linkWarningOverlay.classList.remove('active');
+            pendingUrl = null;
+        });
+
+        linkWarningCancelBtn.addEventListener('click', () => {
+            linkWarningOverlay.classList.remove('active');
+            pendingUrl = null;
+        });
+
+        // Close on clicking outside the modal
+        linkWarningOverlay.addEventListener('click', (e) => {
+            if (e.target === linkWarningOverlay) {
+                linkWarningOverlay.classList.remove('active');
+                pendingUrl = null;
+            }
+        });
+    }
+
     // --- Bio Card Tilt Effect (mouse-follow parallax) ---
     const bioCard = document.querySelector('.primary-bio-card');
     if (bioCard && window.gsap) {

@@ -290,3 +290,95 @@ body {
     visibility: hidden;
     pointer-events: none;
 }
+
+.link-warning-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 8, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.link-warning-overlay.active {
+    display: flex;
+}
+
+.link-warning-modal {
+    background: var(--card-bg);
+    backdrop-filter: var(--panel-blur);
+    -webkit-backdrop-filter: var(--panel-blur);
+    border: 1px solid var(--border-spec);
+    border-radius: 20px;
+    padding: 1.9rem 2rem 1.5rem 2rem;
+    max-width: 360px;
+    width: 92vw;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.link-warning-title {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 0 0 14px;
+    opacity: 0.7;
+}
+
+.link-warning-url {
+    color: var(--text-main);
+    font-family: monospace;
+    font-size: 0.8rem;
+    word-break: break-all;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-spec);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin: 0 0 22px;
+}
+
+.link-warning-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.link-warning-visit,
+.link-warning-cancel {
+    border: none;
+    border-radius: 12px;
+    padding: 9px 22px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.link-warning-visit {
+    background: rgba(0, 255, 150, 0.12);
+    color: var(--neon-accent);
+    border: 1px solid rgba(0, 255, 150, 0.25);
+}
+
+.link-warning-visit:hover {
+    background: rgba(0, 255, 150, 0.2);
+    box-shadow: 0 0 12px var(--glow-shadow);
+}
+
+.link-warning-cancel {
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.65);
+    border: 1px solid var(--border-spec);
+}
+
+.link-warning-cancel:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+}
