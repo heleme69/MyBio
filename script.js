@@ -244,6 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ensureDurationSynced();
         }
 
+        let isScrubbing = false;
+
         // Continuous timeline stream tracker execution updates
         mediaChannel.addEventListener('timeupdate', () => {
             // Only move slider if the user isn't actively dragging it
@@ -276,6 +278,13 @@ document.addEventListener('DOMContentLoaded', () => {
             scrubTimelineBar.addEventListener('pointerup', () => {
                 isScrubbing = false;
             });
+
+            // Extra safety net: catch the release at the document level too,
+            // in case a browser doesn't reliably fire pointerup on the
+            // range input itself once the pointer leaves its bounds.
+            document.addEventListener('pointerup', () => { isScrubbing = false; });
+            document.addEventListener('mouseup', () => { isScrubbing = false; });
+            document.addEventListener('touchend', () => { isScrubbing = false; });
 
             // Fallback in case pointerup fires outside the element
             // (e.g. mouse released after leaving the slider bounds)
