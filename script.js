@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Continuous timeline stream tracker execution updates
         mediaChannel.addEventListener('timeupdate', () => {
             // Only move slider if the user isn't actively dragging it
-            if (scrubTimelineBar && !scrubTimelineBar.matches(':focus')) { 
+            if (scrubTimelineBar && !isScrubbing) {  
                 scrubTimelineBar.value = Math.floor(mediaChannel.currentTime);
             }
             if (currentStampLabel) {
@@ -262,11 +262,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Real-Time User Audio Scrubbing Input Calculations
         if (scrubTimelineBar) {
+            scrubTimelineBar.addEventListener('pointerdown', () => {
+                isScrubbing = true;
+            });
+
             scrubTimelineBar.addEventListener('input', () => {
                 mediaChannel.currentTime = scrubTimelineBar.value;
                 if (currentStampLabel) {
                     currentStampLabel.textContent = evaluateAudioTimestamp(mediaChannel.currentTime);
                 }
+            });
+
+            scrubTimelineBar.addEventListener('pointerup', () => {
+                isScrubbing = false;
+            });
+
+            // Fallback in case pointerup fires outside the element
+            // (e.g. mouse released after leaving the slider bounds)
+            scrubTimelineBar.addEventListener('change', () => {
+                isScrubbing = false;
             });
         }
 
